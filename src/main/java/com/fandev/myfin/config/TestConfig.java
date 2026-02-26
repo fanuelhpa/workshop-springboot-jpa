@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.fandev.myfin.entities.Category;
 import com.fandev.myfin.entities.Order;
 import com.fandev.myfin.entities.OrderItem;
+import com.fandev.myfin.entities.Payment;
 import com.fandev.myfin.entities.Product;
 import com.fandev.myfin.entities.User;
 import com.fandev.myfin.entities.enums.OrderStatus;
@@ -80,5 +81,10 @@ public class TestConfig implements CommandLineRunner{
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
+		//Para salvar um objeto dependente numa relação 1 para 1, deve-se associar os objetos em memória e salvar com o repository do objeto não dependente 
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 	}
 }
