@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.fandev.myfin.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,8 +15,9 @@ import jakarta.persistence.Table;
 public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//Id composto deve sempre ser instanciado
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -34,7 +36,9 @@ public class OrderItem implements Serializable{
 	}
 	
 	//Para o mundo externo, tanto para post quanto para get, o que importa são order e product, 
-	//e não OrderItemPK, por isso os get e set serão de order e product
+	//e não OrderItemPK, por isso os gets e sets serão de order e product
+	
+	@JsonIgnore //O JsonIgnore deve ser aplicado aqui, e não na classe OrderItemPK
 	public Order getOrder() {
 		return id.getOrder();
 	}

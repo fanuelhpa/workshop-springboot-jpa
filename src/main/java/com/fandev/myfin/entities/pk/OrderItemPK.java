@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fandev.myfin.entities.Order;
 import com.fandev.myfin.entities.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
