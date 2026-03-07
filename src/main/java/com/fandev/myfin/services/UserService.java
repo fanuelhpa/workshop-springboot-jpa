@@ -31,4 +31,27 @@ public class UserService {
 	public void delete(Long id) {
 		userRepository.deleteById(id);
 	}
+	
+	public User update(Long id, User user) {
+		
+		//Obtem a referencia do usuario do banco de dados
+		User userOfBank = userRepository.getReferenceById(id);
+		
+		//Atualiza os dados do usuário
+		updateData(userOfBank, user);
+		
+		//Salva o usuario com os novos dados
+		User userUpdated = userRepository.save(userOfBank);
+	
+		//Retorna o usuario atualizado
+		return userUpdated;
+		
+	}
+	
+	//Metodo que atualiza os dados do usuário
+	private void updateData(User userOfBank, User user) {
+		userOfBank.setName(user.getName());
+		userOfBank.setEmail(user.getEmail());
+		userOfBank.setPhone(user.getPhone());
+	}
 }
